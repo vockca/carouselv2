@@ -1,0 +1,152 @@
+.carousel > li{
+
+}
+
+.galleryContainers {
+    justify-content: center;
+    height: 320px;
+    width: 100%;
+}
+
+.galleries {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    height: inherit;
+    width: 440px;
+    margin: 0;
+    z-index: 1;
+}
+
+.carousels {
+    display: flex;
+    position: relative;
+    margin: 0;
+    left: 0;
+    top: 0;
+    white-space: nowrap;
+    height: 300px;
+    width: 440px;
+    transition: left 0.45s;
+    z-index: 0;
+
+}
+
+video {
+    margin: 0;
+    height: 300px;
+    width: inherit;
+}
+
+li {
+    margin: 0;
+    list-style-type: none;
+    height: 300px;
+    width: 450px;
+
+}
+
+img {
+    margin: 0;
+    height: 300px;
+    width: inherit;
+
+}
+
+.no-transition {
+    transition: none !important;
+}
+
+.untouchable {
+    position: unset !important;
+}
+
+.pictureSetterContainers {
+    width: 180px;
+}
+
+.pictureSetters {
+    display: inline-block;
+    width: 80px !important;
+    text-align: center;
+}
+
+.uploadForms {
+    width: 550px;
+    margin: 10px auto;
+}
+
+.carouselRadios {
+    margin: 5px auto;
+}
+
+.leftButtons,
+.rightButtons {
+    border-color: rgba(38, 38, 105, .5);
+    border-radius: 50%;
+    top: 40%;
+    height: 55px;
+    width: 55px;
+    text-align: center;
+    background-color: rgba(38, 38, 105, .3);
+    z-index: 2;
+}
+
+.leftButtons {
+    position: absolute;
+    left: 0;
+}
+
+.rightButtons {
+    position: absolute;
+    right: 0;
+}
+
+.remoters {
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    top: 0;
+    z-index: 0;
+}
+
+
+@media screen and (max-width: 440px) {
+
+    .carouselComponents {
+        width: 100%;
+        float: contour;
+    }
+
+    .galleryContainers {
+        transform: scale(0.8);
+    }
+
+    .galleryWithRemoters {
+        position: relative;
+        display: inline-block;
+        height: 350px;
+        width: 330px;
+    }
+
+    .galleries {
+        width: 330px;
+    }
+
+    .carousels {
+        width: 330px;
+    }
+
+    li {
+        margin: 0;
+        list-style-type: none;
+        height: 300px;
+        width: 330px;
+
+    }
+}
+
+
+
+
+
