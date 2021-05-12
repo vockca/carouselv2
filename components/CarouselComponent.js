@@ -5,37 +5,29 @@ import CarouselItem from "./Carouseltem";
 import PictureSetter from "./pictureSetter";
 import MyButton from "./MyButton";
 
-import {DragNDropMouse} from "./dragAndDropInterface/dragAndDropMouse";
-import {DragNDropTouch} from "./dragAndDropInterface/dragAndDropTouch";
-import {MyCustomEvent} from "./customEventHelper/customEventHelper";
+import {DragNDropMouse} from "../interfaces/dragAndDropInterface/dragAndDropMouse";
+import {DragNDropTouch} from "../interfaces/dragAndDropInterface/dragAndDropTouch";
+import {MyCustomEvent} from "../helpers/customEventHelper/customEventHelper";
 
 import '../styles/carouselComponent.css';
-
-
-//Clones the last and the first elements to provide infinite loop
-let contentWrapper = (arr) => {
-    let carouselContent = [arr[arr.length - 1], ...arr, arr[0]];
-    return carouselContent;
-}
 
 
 const CarouselComponent = (props) => {
     const [carouselPosition, setCarouselPosition] = useState(0);
     const [contentNumber, setContentNumber] = useState((props.contentArray.length > 0) ? 1 : 0);
-    const [carouselWidth, setCarouselWidth] = useState(0)
-
-    const carouselContentArray = contentWrapper(props.contentArray);
+    const [carouselWidth, setCarouselWidth] = useState(0);
 
     const carousel = useRef(null);
 
     useEffect(() => {
         movePicture(contentNumber);
     });
+
     useEffect(() => {
         MyCustomEvent.createCustomEvent("moveContent");
-    }, [props])
+    }, [props]);
 
-    let movePicture = (contentNumber) => {
+    const movePicture = (contentNumber) => {
         givePosition(contentNumber);
 
         //Checks if the current carousel item is the lst and it should be moved to the first to provide looping
@@ -56,16 +48,16 @@ const CarouselComponent = (props) => {
     }
 
     //Defines the same content number to trigger animation to come back picture as it was
-    let returnPicture = () => {
+    const returnPicture = () => {
         givePosition(contentNumber);
     }
 
-    let givePosition = (contentNumber) => {
+    const givePosition = (contentNumber) => {
         carousel.current.style.left = 0 - carouselWidth * contentNumber + 'px';
         setCarouselPosition(-carouselWidth * contentNumber);
     }
 
-    let loopContent = (contentNumber) => {
+    const loopContent = (contentNumber) => {
         setTimeout(() => {
             carousel.current.classList.add('no-transition');
             setContentNumber(contentNumber);
@@ -74,14 +66,14 @@ const CarouselComponent = (props) => {
     }
 
     //Gets position of first touch and last touch and the distance from which swipe considered as a successful and return the string with the name
-    let swipeDetector = (swipeLength, enoughSwipeLength) => {
+    const swipeDetector = (swipeLength, enoughSwipeLength) => {
         if (-swipeLength > enoughSwipeLength) return 'leftSwipe';
         else if (swipeLength > enoughSwipeLength) return 'rightSwipe';
         else return 'noSwipe';
     }
 
     //Gets a type of swipe and moves carousel
-    let swipeMover = (whichSwipe) => {
+    const swipeMover = (whichSwipe) => {
         switch (whichSwipe) {
             case 'rightSwipe':
                 if (contentNumber - 1 === -1) return;
@@ -105,20 +97,50 @@ const CarouselComponent = (props) => {
         setContentNumber(contentNumber + 1);
     }
 
-    //Adds the additional content to array to provide infinity loop
-    let contentArray = carouselContentArray.map((item, index) => {
-        return (<CarouselItem setCarouselWidth={setCarouselWidth} contentNumber={contentNumber} key={index} id={index}
-                              item={item}/>);
-    });
+    //Adds the additional content to array to provide infinity loop plus wraps content in custom <li> component
+    const carouselContentArray = (
+        <>
+            <CarouselItem setCarouselWidth={setCarouselWidth}
+                          contentNumber={contentNumber}
+            >
+                {props.children[props.children.length - 1]}
+            </CarouselItem>
+
+            {props.children.map((item, index) => {
+                return (
+                    <CarouselItem key={index}
+                                  setCarouselWidth={setCarouselWidth}
+                                  contentNumber={contentNumber}
+                    >
+                        {item}
+                    </CarouselItem>
+                )
+            })}
+
+            <CarouselItem setCarouselWidth={setCarouselWidth}
+                          contentNumber={contentNumber}
+            >
+                {props.children[0]}
+            </CarouselItem>
+        </>
+    )
+
 
     return (
         <div className={"carouselComponents"}>
             <div className={'galleryContainers'}>
                 <div className={'galleries'}>
-                    <MyButton disableDurationMS={"600"} type={'button'} className={'leftButtons'}
-                              onclick={() => swipeLeft()}> {"<"} </MyButton>
 
-                    <ul className={'carousels'} id={props.id}
+                    <MyButton disableDurationMS={"600"}
+                              type={'button'}
+                              className={'leftButtons'}
+                              onclick={() => swipeLeft()}
+                    >
+                        {"<"}
+                    </MyButton>
+
+                    <ul className={'carousels'}
+                        id={props.id}
                         ref={carousel}
                         onMouseDown={event => DragNDropMouse.dragStart(event, carouselPosition)}
                         onMouseUp={(event) => {
@@ -131,7 +153,6 @@ const CarouselComponent = (props) => {
                             let swipeKind = swipeDetector(DragNDropMouse.getSwipeLength(), 100);
                             swipeMover(swipeKind);
                         }}
-
                         onTouchStart={event => DragNDropTouch.dragStart(event, carouselPosition)}
                         onTouchEnd={event => {
                             DragNDropTouch.dragStop(event);
@@ -139,10 +160,16 @@ const CarouselComponent = (props) => {
                             swipeMover(swipeKind);
                         }}
                     >
-                        {contentArray}
+                        {carouselContentArray}
                     </ul>
-                    <MyButton disableDurationMS={"600"} type={'button'} className={'rightButtons'}
-                              onclick={() => swipeRight()}> {">"} </MyButton>
+
+                    <MyButton disableDurationMS={"600"}
+                              type={'button'}
+                              className={'rightButtons'}
+                              onclick={() => swipeRight()}
+                    >
+                        {">"}
+                    </MyButton>
                 </div>
             </div>
 

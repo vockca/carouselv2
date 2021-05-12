@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+
 import MyInput from "./MyInput";
 
 
@@ -18,12 +19,13 @@ const PictureSetter = (props) => {
             return;
         }
         //If it passes through it sets the value
-        props.setContentNumber(input.value);
+        props.setContentNumber(+input.value);
     }
 
     //Defines the correct number while content is about to loop
     let getRightContentNumberVisual = () => {
         if (!props.contentNumber) return "";
+
         switch (props.contentNumber) {
             case (props.contentArray.length + 1):
                 return 1;
@@ -39,14 +41,17 @@ const PictureSetter = (props) => {
             <form>
                 <span>Choose</span>
 
-                <MyInput className={'pictureSetters'} type={'text'} placeholder={getRightContentNumberVisual()}
+                <MyInput className={'pictureSetters'}
+                         type={'text'}
+                         placeholder={getRightContentNumberVisual()}
                          onChange={(event) => setEnteredPicture(event.target)}
                          error={error}
                 />
 
                 <span>from {props.contentArray.length}</span>
             </form>
-        </div>)
+        </div>
+    )
 }
 
 

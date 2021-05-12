@@ -1,4 +1,4 @@
-*{
+* {
     box-sizing: border-box;
     margin-bottom: 3px;
     margin-top: 3px;
@@ -16,7 +16,7 @@ body {
     background-color: #254968;
 }
 
-select{
+select {
     outline: none;
 }
 
@@ -30,8 +30,7 @@ input[type="text"] {
     border-radius: 10px;
 }
 
-
-input[type="text"]::placeholder{
+input[type="text"]::placeholder {
     color: black;
     opacity: 0.5;
 }
@@ -43,16 +42,15 @@ select {
     margin: 3px;
 }
 
-input[type="text"]{
+input[type="text"] {
     width: 400px;
     font: inherit;
 }
 
-input:focus{
+input:focus {
     outline: none;
     border: 2px solid deepskyblue;
 }
-
 
 input:invalid,
 select:invalid,
@@ -60,6 +58,7 @@ textarea:invalid {
     border: 2px solid #ff7d87;
     box-shadow: none;
 }
+
 input[type="submit"],
 input[type="button"],
 button {
@@ -81,7 +80,6 @@ button {
     margin: 3px;
 }
 
-
 @media (hover: hover) {
     input[type="submit"]:hover,
     input[type="reset"]:hover,
@@ -97,17 +95,11 @@ button {
     color: red;
     margin-top: 0.25rem;
     max-width: 400px;
-}
-
-::placeholder{
-    opacity: 0.5;
-}
-
-#app{
-    width: 100%;
     display: inline-block;
-    text-align: center;
+}
 
+::placeholder {
+    opacity: 0.5;
 }
 
 .uploadForms {
@@ -118,6 +110,12 @@ button {
 .uploadURLButtons {
     position: relative;
     top: 24px;
+}
+
+#app {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
 }
 
 @media screen and (max-width: 550px) {

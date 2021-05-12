@@ -1,4 +1,4 @@
-let draggingElem = {
+const draggingElem = {
     elem: null,
     firstTouch: null,
     shiftX: null,
@@ -6,17 +6,6 @@ let draggingElem = {
     startPosition: null,
     currentSwipeLengthUsed: false,
 }
-
-
-// let validation = (event) => {
-//     const draggingElem = document.elementFromPoint(event.clientX, event.clientY);
-//
-//     if (draggingElem.id.substr(0, 1) === '0' ||
-//         draggingElem.id.substr(0, 1) === '' + (this.props.contentArray.length - 1)) {
-// //checks if the current elem is the last or the first in the carousel to prevent the swipespamming
-//         return null;
-//     }
-// }
 
 
 //Gets elem , position and shift from that position to desirable style.left of elem
@@ -27,8 +16,6 @@ let moveUnderCursor = (elem, pageX, shiftX) => {
 
 export const DragNDropMouse = {
     dragStart: (event, startPosition) => {
-
-        event.preventDefault();
         draggingElem.elem = event.currentTarget;
         draggingElem.startPosition = startPosition;
         draggingElem.firstTouch = event.pageX;
@@ -43,6 +30,8 @@ export const DragNDropMouse = {
         moveUnderCursor(draggingElem.elem, draggingElem.firstTouch, draggingElem.shiftX);
 
         draggingElem.elem.addEventListener('mousemove', DragNDropMouse.dragMove);
+
+        event.preventDefault();
     },
 
     dragMove: (event) => {
@@ -55,7 +44,6 @@ export const DragNDropMouse = {
 
     dragStop: (event) => {
         if (draggingElem.elem === null) {
-            console.error("Elem is null");
             return;
         }
 
@@ -70,6 +58,7 @@ export const DragNDropMouse = {
         if (draggingElem.currentSwipeLengthUsed) return 0;
 
         draggingElem.currentSwipeLengthUsed = true;
+
         return draggingElem.swipeLength;
     }
 }

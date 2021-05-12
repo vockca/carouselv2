@@ -1,4 +1,13 @@
-.carousel > li{
+video {
+    margin: 0;
+    height: 300px;
+    width: inherit;
+}
+
+img {
+    margin: 0;
+    height: 300px;
+    width: inherit;
 
 }
 
@@ -32,25 +41,11 @@
 
 }
 
-video {
-    margin: 0;
-    height: 300px;
-    width: inherit;
-}
-
-li {
+.carouselListItem {
     margin: 0;
     list-style-type: none;
     height: 300px;
     width: 450px;
-
-}
-
-img {
-    margin: 0;
-    height: 300px;
-    width: inherit;
-
 }
 
 .no-transition {
@@ -69,6 +64,12 @@ img {
     display: inline-block;
     width: 80px !important;
     text-align: center;
+}
+
+.error {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .uploadForms {
@@ -110,8 +111,13 @@ img {
     z-index: 0;
 }
 
-
 @media screen and (max-width: 440px) {
+    .carouselListItem {
+        margin: 0;
+        list-style-type: none;
+        height: 300px;
+        width: 330px;
+    }
 
     .carouselComponents {
         width: 100%;
@@ -135,14 +141,6 @@ img {
 
     .carousels {
         width: 330px;
-    }
-
-    li {
-        margin: 0;
-        list-style-type: none;
-        height: 300px;
-        width: 330px;
-
     }
 }
 
