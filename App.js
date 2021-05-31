@@ -25,7 +25,7 @@ const App = () => {
             >
                 <div>Hello world</div>
                 <div>Hello world</div>
-                <video src={'files/rabbit320.webm'}/>
+                <video src={"https://res.cloudinary.com/nackca/video/upload/v1622485941/Pexels_Videos_1722593_t7midg.mp4"} controls/>
                 {contentArray}
             </CarouselComponent>
 
