@@ -14,7 +14,7 @@ import '../styles/carouselComponent.css';
 
 const CarouselComponent = (props) => {
     const [carouselPosition, setCarouselPosition] = useState(0);
-    const [contentArray, setContentArray] = useState(props.children.flat());
+    const [contentArray, setContentArray] = useState((!Array.isArray(props.children) ? [props.children] : props.children.flat()));
     const [contentNumber, setContentNumber] = useState((contentArray.length > 0) ? 1 : 0);
     const [carouselWidth, setCarouselWidth] = useState(0);
 
@@ -26,7 +26,7 @@ const CarouselComponent = (props) => {
     });
 
     useEffect(() => {
-        setContentArray(props.children.flat());
+        setContentArray((!Array.isArray(props.children) ? [props.children] : props.children.flat()));
     }, [props.children]);
 
     const movePicture = (contentNumber) => {
