@@ -6,27 +6,27 @@ import CarouselComponent from "./components/CarouselComponent";
 
 
 const App = () => {
-    const [content, setContent] = useState([{URL: 'files/rabbit320.webm', kind: 'video'}]);
+    const [content, setContent] = useState([<div>Hello</div>, <div>World</div>]);
 
     const contentAdder = (addingContent) => {
         setContent([...content, addingContent]);
     }
 
-    const carouselContent = content.map((item, index) => {
+    const contentArray = content.map((item, index) => {
         return (
-                <item.kind key={index}
-                          src={item['URL']}
-                          controls/>
+            <div key={index}>{item}</div>
         )
-    });
+    })
 
 
     return (
         <>
             <CarouselComponent id={"mainCarousel"}
-                               contentArray={content}
             >
-                {carouselContent}
+                <div>Hello world</div>
+                <div>Hello world</div>
+                <video src={'files/rabbit320.webm'}/>
+                {contentArray}
             </CarouselComponent>
 
             <MyForm className={'uploadForms'}

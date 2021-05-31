@@ -14,25 +14,27 @@ import '../styles/carouselComponent.css';
 
 const CarouselComponent = (props) => {
     const [carouselPosition, setCarouselPosition] = useState(0);
-    const [contentNumber, setContentNumber] = useState((props.contentArray.length > 0) ? 1 : 0);
+    const [contentArray, setContentArray] = useState(props.children.flat());
+    const [contentNumber, setContentNumber] = useState((contentArray.length > 0) ? 1 : 0);
     const [carouselWidth, setCarouselWidth] = useState(0);
 
     const carousel = useRef(null);
 
     useEffect(() => {
         movePicture(contentNumber);
+        MyCustomEvent.createCustomEvent("moveContent");
     });
 
     useEffect(() => {
-        MyCustomEvent.createCustomEvent("moveContent");
-    }, [props]);
+        setContentArray(props.children.flat());
+    }, [props.children]);
 
     const movePicture = (contentNumber) => {
         givePosition(contentNumber);
 
         //Checks if the current carousel item is the lst and it should be moved to the first to provide looping
-        if (contentNumber === 0 || contentNumber === props.contentArray.length + 1) {
-            let finalContentNumber = contentNumber === 0 ? props.contentArray.length : 1;
+        if (contentNumber === 0 || contentNumber === contentArray.length + 1) {
+            let finalContentNumber = contentNumber === 0 ? contentArray.length : 1;
             loopContent(finalContentNumber);
         }
 
@@ -98,15 +100,15 @@ const CarouselComponent = (props) => {
     }
 
     //Adds the additional content to array to provide infinity loop plus wraps content in custom <li> component
-    const carouselContentArray = (
+    const carouselContentArray = contentArray.length === 0 ? null : (
         <>
             <CarouselItem setCarouselWidth={setCarouselWidth}
                           contentNumber={contentNumber}
             >
-                {props.children[props.children.length - 1]}
+                {contentArray[contentArray.length - 1]}
             </CarouselItem>
 
-            {props.children.map((item, index) => {
+            {contentArray.map((item, index) => {
                 return (
                     <CarouselItem key={index}
                                   setCarouselWidth={setCarouselWidth}
@@ -120,10 +122,10 @@ const CarouselComponent = (props) => {
             <CarouselItem setCarouselWidth={setCarouselWidth}
                           contentNumber={contentNumber}
             >
-                {props.children[0]}
+                {contentArray[0]}
             </CarouselItem>
         </>
-    )
+    );
 
 
     return (
@@ -175,13 +177,12 @@ const CarouselComponent = (props) => {
 
             <RadioSwitchers setContentNumber={setContentNumber}
                             contentNumber={contentNumber}
-                            contentArray={props.contentArray}
-                            id={props.id}
+                            contentArray={contentArray}
             />
 
             <PictureSetter setContentNumber={setContentNumber}
                            contentNumber={contentNumber}
-                           contentArray={props.contentArray}
+                           contentArray={contentArray}
             />
         </div>
     );

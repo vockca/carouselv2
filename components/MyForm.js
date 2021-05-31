@@ -12,10 +12,17 @@ const submitForm = (event, props) => {
         //Simple validator, adds data to and object to send if it passes
         if (myForm.elements[i].name && myForm.elements[i].value.trim() !== '') {
             addingContent[myForm.elements[i].name] = myForm.elements[i].value;
+
+            const carouselContent = [addingContent].map((item, index) => {
+                return (
+                    <item.kind key={index}
+                               src={item['URL']}
+                               controls/>
+                )
+            });
+            props.contentAdder(carouselContent[0]);
         }
     }
-
-    props.contentAdder(addingContent);
 
     myForm.reset();
     event.preventDefault();

@@ -48,6 +48,16 @@ img {
     width: 450px;
 }
 
+.carouselListItem :first-child{
+    display: flex;
+    margin: 0;
+    list-style-type: none;
+    height: 300px;
+    width: 450px;
+    align-items: center;
+    justify-content: center;
+}
+
 .no-transition {
     transition: none !important;
 }
@@ -117,6 +127,15 @@ img {
         list-style-type: none;
         height: 300px;
         width: 330px;
+    }
+    .carouselListItem :first-child{
+        display: flex;
+        margin: 0;
+        list-style-type: none;
+        height: 300px;
+        width: 330px;
+        align-items: center;
+        justify-content: center;
     }
 
     .carouselComponents {
